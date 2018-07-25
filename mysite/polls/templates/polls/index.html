@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+	<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+		<style>
+			body, html {
+				font-family: 'Roboto Mono', monospace;
+			}
+		</style>
+	</head>
+	<body>
+		{% if latest_question_list %}
+		    <ul>
+		    {% for question in latest_question_list %}
+				<li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+		    {% endfor %}
+		    </ul>
+		{% else %}
+		    <p>No polls are available.</p>
+		{% endif %}
+	</body>
+</html>
