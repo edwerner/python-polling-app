@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 	<head>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-		<link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
-		<style>
-			body, html {
-				font-family: 'Roboto Mono', monospace;
-			}
-		</style>
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet"/>
+		{% load static %}
+		<link rel="stylesheet" type="text/css" href="{% static 'polls/app.css' %}"/>
+		<link rel="stylesheet" type="text/css" href="{% static 'polls/flex.css' %}"/>
 	</head>
-	<body>
-		<h1>{{ question.question_text }}</h1>
+		<div class="wrapper">
+			<div class="content flex flex-center flex-column">
+				<h1>{{ question.question_text }}</h1>
 
-		{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+				{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-		<form action="{% url 'polls:vote' question.id %}" method="post">
-			{% csrf_token %}
-			{% for choice in question.choice_set.all %}
-			    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-			    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
-			{% endfor %}
-			<input type="submit" value="Vote" />
-		</form>
+				<form action="{% url 'polls:vote' question.id %}" method="post">
+					{% csrf_token %}
+					{% for choice in question.choice_set.all %}
+					    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+					    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+					{% endfor %}
+					<input type="submit" value="Vote" />
+				</form>
+			</div>
+		</div>
 	</body>
 </html>
